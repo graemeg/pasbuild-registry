@@ -1,0 +1,128 @@
+= PasBuild Central Package Registry
+
+The official package registry for https://github.com/graemeg/pasbuild[PasBuild],
+a Maven-inspired build automation tool for Free Pascal projects.
+
+== Purpose
+
+This repository holds package manifests that enable PasBuild's remote dependency
+resolution. When a project declares a `<dependency>` in its `project.xml` and the
+dependency is not found in the local repository (`~/.pasbuild/repository/`), PasBuild
+fetches the manifest from this registry to locate, download, and build the dependency
+automatically.
+
+== Directory Layout
+
+[source]
+----
+packages/
+  <2-letter-prefix>/
+    <package-name>/
+      package.xml        # Package metadata (description, author, keywords, version list)
+      1.0.0.xml          # Version manifest (origin URL, SHA-256, compilers, dependencies)
+      1.1.0.xml
+----
+
+The two-letter prefix is derived from the first two characters of the package name
+(lowercased, single-character names are padded with `_`). This keeps directory listings
+manageable as the registry grows.
+
+=== Version Manifest (`<version>.xml`)
+
+Each version manifest describes a single release:
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<release>
+  <name>example-lib</name>
+  <version>1.0.0</version>
+  <author>Author Name</author>
+  <license>MIT</license>
+  <description>Brief description of the package</description>
+
+  <origin>
+    <url>https://github.com/user/example-lib/releases/download/v1.0.0/example-lib-1.0.0-src.zip</url>
+    <sha256>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</sha256>
+    <size>12480</size>
+  </origin>
+
+  <compilers>
+    <compiler>
+      <name>fpc</name>
+      <minimumVersion>3.2.2</minimumVersion>
+    </compiler>
+  </compilers>
+
+  <dependencies>
+    <dependency>
+      <name>other-lib</name>
+      <version>2.0.0</version>
+    </dependency>
+  </dependencies>
+
+  <publishedAt>2026-06-29T12:00:00Z</publishedAt>
+</release>
+----
+
+=== Package Manifest (`package.xml`)
+
+The package manifest provides metadata and lists all published versions:
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<package>
+  <name>example-lib</name>
+  <description>Brief description of the package</description>
+  <author>Author Name</author>
+  <license>MIT</license>
+
+  <keywords>
+    <keyword>example</keyword>
+    <keyword>library</keyword>
+  </keywords>
+
+  <versions>
+    <version>1.0.0</version>
+  </versions>
+</package>
+----
+
+== Publishing a Package
+
+Use `pasbuild publish` to generate manifest files and optionally submit them
+as a pull request:
+
+[source,bash]
+----
+# Generate manifests locally (dry-run)
+pasbuild publish --archive-url <url-to-source-zip> --dry-run
+
+# Generate and submit via GitHub PR (requires PASBUILD_GITHUB_TOKEN or GITHUB_TOKEN)
+pasbuild publish --archive-url <url-to-source-zip>
+----
+
+Alternatively, create manifests manually following the format above and open a
+pull request against this repository.
+
+== Configuration
+
+PasBuild uses this registry by default. To override, add a `<repositories>` section
+to your `project.xml` or `~/.pasbuild/settings.xml`:
+
+[source,xml]
+----
+<repositories>
+  <repository>
+    <id>central</id>
+    <url>https://raw.githubusercontent.com/graemeg/pasbuild-registry/main/</url>
+  </repository>
+</repositories>
+----
+
+== Licence
+
+The registry metadata in this repository is dedicated to the public domain
+(https://creativecommons.org/publicdomain/zero/1.0/[CC0 1.0]). Individual
+packages are distributed under their own licences as declared in their manifests.
