@@ -1,7 +1,7 @@
 = PasBuild Central Package Registry
 
 The official package registry for https://github.com/graemeg/pasbuild[PasBuild],
-a Maven-inspired build automation tool for Free Pascal projects.
+a Maven-inspired build automation tool for Object Pascal projects (Free Pascal and Blaise).
 
 == Purpose
 
