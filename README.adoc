@@ -101,7 +101,15 @@ pasbuild publish --archive-url <url-to-source-zip> --dry-run
 
 # Generate and submit via GitHub PR (requires PASBUILD_GITHUB_TOKEN or GITHUB_TOKEN)
 pasbuild publish --archive-url <url-to-source-zip>
+
+# Publish a library module of a multi-module project
+pasbuild publish --archive-url <url-to-source-zip> -m <module-name>
 ----
+
+PasBuild downloads the archive at the given URL and records the SHA-256 of
+those exact bytes in the manifest, so consumers can verify their downloads.
+If the archive is not reachable from the publishing machine, supply the
+checksum explicitly with `--sha256 <hex>`.
 
 Alternatively, create manifests manually following the format above and open a
 pull request against this repository.
