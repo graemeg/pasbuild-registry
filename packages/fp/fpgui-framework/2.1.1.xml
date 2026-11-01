@@ -3,7 +3,7 @@
   <name>fpgui-framework</name>
   <version>2.1.1</version>
   <author>Graeme Geldenhuys</author>
-  <license>BSD-3-Clause</license>
+  <license>LGPL-2.1-or-later WITH Classpath-exception-2.0</license>
 
   <origin>
     <url>https://github.com/graemeg/fpGUI/releases/download/v2.1.1/fpgui-framework-2.1.1-src.zip</url>
