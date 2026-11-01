@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<release>
+  <name>fpgui-framework</name>
+  <version>2.1.1</version>
+  <author>Graeme Geldenhuys</author>
+  <license>BSD-3-Clause</license>
+
+  <origin>
+    <url>https://github.com/graemeg/fpGUI/releases/download/v2.1.1/fpgui-framework-2.1.1-src.zip</url>
+    <sha256>88b5414f12b5504bac204b15f62bda206f3485c3c434095d22f77bda4713564c</sha256>
+    <size>1401946</size>
+  </origin>
+
+  <compilers>
+    <compiler>
+      <name>fpc</name>
+      <minimumVersion>3.2.2</minimumVersion>
+    </compiler>
+  </compilers>
+
+  <dependencies/>
+
+  <publishedAt>2026-11-01T17:05:19Z</publishedAt>
+</release>

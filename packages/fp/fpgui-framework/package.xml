@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package>
+  <name>fpgui-framework</name>
+  <author>Graeme Geldenhuys</author>
+  <license>BSD-3-Clause</license>
+
+  <versions>
+    <version>2.1.1</version>
+  </versions>
+</package>
